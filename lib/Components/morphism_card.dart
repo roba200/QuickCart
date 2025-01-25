@@ -7,7 +7,7 @@ class MorphismCard extends StatelessWidget {
   final Widget child;
 
   MorphismCard({
-    this.elevation = 8.0,
+    this.elevation = 3.0,
     this.borderRadius = 16.0,
     this.padding = const EdgeInsets.all(16.0),
     required this.child,
@@ -16,6 +16,7 @@ class MorphismCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white,
       elevation: elevation,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius),

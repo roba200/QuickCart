@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/Pages/login_page_new.dart';
 import 'package:e_commerce_app/firebase_options.dart';
-import 'package:e_commerce_app/main_page.dart';
+import 'package:e_commerce_app/Pages/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

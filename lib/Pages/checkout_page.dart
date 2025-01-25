@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/Consts/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:payhere_mobilesdk_flutter/payhere_mobilesdk_flutter.dart';
 
-import 'edit_address_page.dart';
-import 'morphism_card.dart';
+import '../edit_address_page.dart';
+import '../Components/morphism_card.dart';
 
 class CheckoutPage extends StatefulWidget {
   final String userId;
@@ -35,11 +36,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: darkWhite,
       appBar: AppBar(
+        toolbarHeight: 100,
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          color: Colors.deepPurple,
+          color: Colors.black,
           icon: Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pop(context);
@@ -48,9 +51,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         title: Text(
           "Checkout",
           style: TextStyle(
-              color: Colors.deepPurple,
-              fontWeight: FontWeight.bold,
-              fontSize: 30),
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 34),
         ),
       ),
       body: Column(
@@ -63,38 +64,53 @@ class _CheckoutPageState extends State<CheckoutPage> {
               builder: (context, snapshot) {
                 _snapshot = snapshot;
                 if (snapshot.hasData) {
-                  return MorphismCard(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Shipping Address",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              EditAddressPage()));
-                                },
-                                icon: Icon(Icons.edit_location_alt_outlined))
-                          ],
-                        ),
-                        Text(snapshot.data?['name']),
-                        Text(snapshot.data?['address1']),
-                        Text(snapshot.data?['address2']),
-                        Text(snapshot.data?['city']),
-                        Text(snapshot.data?['province']),
-                        Text(snapshot.data?['country']),
-                        Text(snapshot.data?['zip']),
-                        Text(snapshot.data?['number']),
-                      ],
+                  return SizedBox(
+                    child: MorphismCard(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Shipping Address",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: red),
+                                child: IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditAddressPage()));
+                                    },
+                                    icon: Icon(
+                                      Icons.edit_location_alt_outlined,
+                                      color: Colors.white,
+                                    )),
+                              )
+                            ],
+                          ),
+                          Text(snapshot.data?['name']),
+                          Text(snapshot.data?['address1']),
+                          Text(snapshot.data?['address2']),
+                          Text(snapshot.data?['city']),
+                          Text(snapshot.data?['province']),
+                          Text(snapshot.data?['country']),
+                          Text(snapshot.data?['zip']),
+                          Text(snapshot.data?['number']),
+                        ],
+                      ),
                     ),
                   );
                 } else {
@@ -115,50 +131,54 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       final documentSnapshot = snapshot.data?.docs[index];
                       final data = documentSnapshot?.data();
 
-                      return MorphismCard(
-                          child: Row(
-                        children: [
-                          Container(
-                            width: 50,
-                            child: Image.network(data!['imageurl']),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.75,
-                              child: Column(
-                                children: [
-                                  Text(
-                                    data!['name'],
-                                    maxLines: 3,
-                                    style: TextStyle(
-                                        overflow: TextOverflow.ellipsis,
-                                        fontSize: 10),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text(
-                                        "\$" +
-                                            data!['price'] +
-                                            " x " +
-                                            data!['qty'],
-                                        style: TextStyle(
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: MorphismCard(
+                            child: Row(
+                          children: [
+                            Container(
+                              width: 50,
+                              child: Image.network(data!['imageurl']),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.60,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      data!['name'],
+                                      maxLines: 3,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: 10),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          "\$" +
+                                              data!['price'] +
+                                              " x " +
+                                              data!['qty'],
+                                          style: TextStyle(
                                             fontSize: 10,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ));
+                          ],
+                        )),
+                      );
                     },
                   );
                 }),
@@ -244,7 +264,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                     CupertinoButton(
                         disabledColor: Colors.grey,
-                        color: Colors.deepPurple,
+                        color: red,
                         child: Text("Pay"),
                         onPressed: dropdownValue != 0
                             ? () async {

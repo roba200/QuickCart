@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_app/morphism_card.dart';
-import 'package:e_commerce_app/order_history.dart';
+import 'package:e_commerce_app/Components/morphism_card.dart';
+import 'package:e_commerce_app/Consts/colors.dart';
+import 'package:e_commerce_app/Pages/order_history.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,11 @@ class _OrdersPageState extends State<OrdersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: darkWhite,
       appBar: AppBar(
+        toolbarHeight: 100,
         leading: IconButton(
-          color: Colors.deepPurple,
+          color: Colors.black,
           icon: Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pop(context);
@@ -31,9 +34,7 @@ class _OrdersPageState extends State<OrdersPage> {
         title: Text(
           "My Orders",
           style: TextStyle(
-              color: Colors.deepPurple,
-              fontWeight: FontWeight.bold,
-              fontSize: 30),
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 34),
         ),
       ),
       body: StreamBuilder(
@@ -61,28 +62,32 @@ class _OrdersPageState extends State<OrdersPage> {
                   String formattedDate =
                       DateFormat('yyyy-MM-dd – kk:mm').format(dateTime);
                   return Center(
-                    child: MorphismCard(
-                      child: ListTile(
-                        title: Text("ID:" + snapshot.data!.docs[index].id),
-                        subtitle: Text(formattedDate),
-                        trailing: Text("Amount: \$" +
-                            snapshot.data!.docs[index]['amount'].toString()),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => OrderHistory(
-                                        orderId: snapshot.data!.docs[index].id,
-                                        paymentId: snapshot.data!.docs[index]
-                                            ['paymentId'],
-                                        timestamp: formattedDate,
-                                        amount: snapshot
-                                            .data!.docs[index]['amount']
-                                            .toString(),
-                                        status: snapshot.data!.docs[index]
-                                            ['status'],
-                                      )));
-                        },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: MorphismCard(
+                        child: ListTile(
+                          title: Text("ID:" + snapshot.data!.docs[index].id),
+                          subtitle: Text(formattedDate),
+                          trailing: Text("Amount: \$" +
+                              snapshot.data!.docs[index]['amount'].toString()),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => OrderHistory(
+                                          orderId:
+                                              snapshot.data!.docs[index].id,
+                                          paymentId: snapshot.data!.docs[index]
+                                              ['paymentId'],
+                                          timestamp: formattedDate,
+                                          amount: snapshot
+                                              .data!.docs[index]['amount']
+                                              .toString(),
+                                          status: snapshot.data!.docs[index]
+                                              ['status'],
+                                        )));
+                          },
+                        ),
                       ),
                     ),
                   );

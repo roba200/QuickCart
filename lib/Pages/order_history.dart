@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/Consts/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import 'morphism_card.dart';
+import '../Components/morphism_card.dart';
 
 class OrderHistory extends StatefulWidget {
   String userId = FirebaseAuth.instance.currentUser!.uid;
@@ -29,9 +30,11 @@ class _OrderHistoryState extends State<OrderHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: darkWhite,
         appBar: AppBar(
+          toolbarHeight: 100,
           leading: IconButton(
-            color: Colors.deepPurple,
+            color: Colors.black,
             icon: Icon(Icons.arrow_back_ios_new),
             onPressed: () {
               Navigator.pop(context);
@@ -42,9 +45,7 @@ class _OrderHistoryState extends State<OrderHistory> {
           title: Text(
             "Order: " + widget.orderId,
             style: TextStyle(
-                color: Colors.deepPurple,
-                fontWeight: FontWeight.bold,
-                fontSize: 15),
+                color: red, fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
         body: Column(
@@ -65,50 +66,54 @@ class _OrderHistoryState extends State<OrderHistory> {
                         final documentSnapshot = snapshot.data?.docs[index];
                         final data = documentSnapshot?.data();
 
-                        return MorphismCard(
-                            child: Row(
-                          children: [
-                            Container(
-                              width: 130,
-                              child: Image.network(data!['imageurl']),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      data!['name'],
-                                      maxLines: 3,
-                                      style: TextStyle(
-                                          overflow: TextOverflow.ellipsis,
-                                          fontSize: 16),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          "\$" +
-                                              data!['price'] +
-                                              " x " +
-                                              data!['qty'],
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: MorphismCard(
+                              child: Row(
+                            children: [
+                              Container(
+                                width: 130,
+                                child: Image.network(data!['imageurl']),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        data!['name'],
+                                        maxLines: 3,
+                                        style: TextStyle(
+                                            overflow: TextOverflow.ellipsis,
+                                            fontSize: 16),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            "\$" +
+                                                data!['price'] +
+                                                " x " +
+                                                data!['qty'],
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ));
+                            ],
+                          )),
+                        );
                       },
                     );
                   }),

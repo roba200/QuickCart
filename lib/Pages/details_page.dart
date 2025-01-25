@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/Consts/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'morphism_card.dart';
+import '../Components/morphism_card.dart';
 
 class DetailsPage extends StatefulWidget {
   final Map<String, dynamic> document;
@@ -46,6 +47,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: darkWhite,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         leading: IconButton(
@@ -140,7 +142,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: CupertinoButton(
-                      color: Colors.deepPurple,
+                      color: red,
                       child: const Text("Add to cart"),
                       onPressed: () {
                         showDialog(
@@ -193,7 +195,7 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 8),
+              padding: EdgeInsets.only(left: 10, top: 30, right: 10),
               width: MediaQuery.of(context).size.width * 0.98,
               height: 200,
               child: MorphismCard(
@@ -204,29 +206,29 @@ class _DetailsPageState extends State<DetailsPage> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(specList[index]),
+                      child: Text("○ ${specList[index]}"),
                     );
                   },
                 ),
               ),
             ),
-            Row(
-              // ignore: prefer_const_literals_to_create_immutables
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 30, left: 8),
-                  child: Text(
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              child: Row(
+                // ignore: prefer_const_literals_to_create_immutables
+                children: [
+                  Text(
                     'Item Description',
                     style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 8, top: 8),
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
               child: Text(
                 widget.document['description'],
                 style: TextStyle(fontSize: 16),
@@ -238,7 +240,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 children: [
                   Container(
                     height: 275,
-                    color: Colors.deepPurple,
+                    color: Colors.red,
                   ),
                   Column(
                     children: [

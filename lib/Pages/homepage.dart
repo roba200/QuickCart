@@ -2,7 +2,7 @@ import 'package:e_commerce_app/Consts/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'cart_page.dart';
-import 'Pages/categories_page.dart';
+import 'categories_page.dart';
 import 'favourite_page.dart';
 import 'feedpage.dart';
 import 'profile_page.dart';

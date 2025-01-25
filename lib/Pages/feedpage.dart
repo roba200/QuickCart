@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/Components/item_card.dart';
+import 'package:e_commerce_app/Consts/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import 'details_page.dart';
-import 'morphism_card.dart';
+import '../Components/morphism_card.dart';
 
 class FeedPage extends StatefulWidget {
   bool isLiked = false;
@@ -25,8 +26,9 @@ class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: darkWhite,
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.white,
         leading: Icon(Icons.search),
         title: TextField(
           controller: _controller,
@@ -45,8 +47,8 @@ class _FeedPageState extends State<FeedPage> {
           stream: widget.searchText.isNotEmpty
               ? FirebaseFirestore.instance
                   .collection('items')
-                  .where('name', isGreaterThanOrEqualTo: widget.searchText)
-                  .where('name', isLessThan: widget.searchText + 'z')
+                  .where('searchname',
+                      arrayContains: widget.searchText.toLowerCase())
                   .snapshots()
               : FirebaseFirestore.instance.collection('items').snapshots(),
           builder: (context, snapshot) {
@@ -56,7 +58,6 @@ class _FeedPageState extends State<FeedPage> {
               );
             }
             if (snapshot.hasData) {
-              bool isLiked = true;
               return GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,

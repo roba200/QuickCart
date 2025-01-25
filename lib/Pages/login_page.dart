@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'forgot_password_page.dart';
-import 'my_button.dart';
-import 'my_textfield.dart';
-import 'square_tile.dart';
+import '../my_button.dart';
+import '../my_textfield.dart';
+import '../square_tile.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -69,8 +69,8 @@ class _LoginPageState extends State<LoginPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return const AlertDialog(
-          backgroundColor: Colors.deepPurple,
+        return AlertDialog(
+          backgroundColor: red,
           title: Center(
             child: Text(
               'Incorrect Email',
@@ -87,9 +87,9 @@ class _LoginPageState extends State<LoginPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return const AlertDialog(
-          backgroundColor: Colors.deepPurple,
-          title: Center(
+        return AlertDialog(
+          backgroundColor: red,
+          title: const Center(
             child: Text(
               'Incorrect Password',
               style: TextStyle(color: Colors.white),

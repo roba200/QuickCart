@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/Components/category_card.dart';
 import 'package:e_commerce_app/Consts/colors.dart';
+import 'package:e_commerce_app/category_select.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import '../category_select.dart';
-import '../morphism_card.dart';
+import '../Components/morphism_card.dart';
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({super.key});

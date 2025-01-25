@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import 'my_button.dart';
-import 'my_textfield.dart';
+import '../my_button.dart';
+import '../my_textfield.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -252,9 +252,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.only(top: 38, bottom: 50),
                   child: RedButton(
                       text: "SIGN UP",
-                      onPressed: () {
+                      onPressed: () async {
                         final form = formKey.currentState!;
-                        if (form.validate()) {}
+                        if (form.validate()) {
+                          await signUp();
+                        }
                       }),
                 ),
               ],

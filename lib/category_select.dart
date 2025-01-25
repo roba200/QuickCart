@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/Consts/colors.dart';
+import 'package:e_commerce_app/Pages/details_page.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import 'details_page.dart';
-import 'morphism_card.dart';
+import 'Components/morphism_card.dart';
 
 class CategorySelect extends StatefulWidget {
   final String category;
@@ -19,9 +21,11 @@ class _CategorySelectState extends State<CategorySelect> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: darkWhite,
       appBar: AppBar(
+        toolbarHeight: 100,
         leading: IconButton(
-          color: Colors.deepPurple,
+          color: Colors.black,
           icon: Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pop(context);
@@ -32,9 +36,7 @@ class _CategorySelectState extends State<CategorySelect> {
         title: Text(
           widget.category,
           style: TextStyle(
-              color: Colors.deepPurple,
-              fontWeight: FontWeight.bold,
-              fontSize: 30),
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30),
         ),
       ),
       body: StreamBuilder(
